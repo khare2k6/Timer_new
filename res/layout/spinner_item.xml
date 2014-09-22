@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView  
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:textSize="20dip"
+    android:textColor="@android:color/background_dark"
+    android:gravity="center"  
+    android:padding="5dip"
+    />
+
+ <!--   <LinearLayout 
+      xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/spinner_item_linear_layout" 
+       android:layout_width="match_parent" 
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+
+    <TextView        
+      android:layout_width="wrap_content" 
+      android:layout_height="wrap_content"
+      android:id="@+id/spinner_textView">         
+    </TextView>
+
+    <RadioButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/spinner_radio_button">
+   </RadioButton>
+   </LinearLayout>-->
