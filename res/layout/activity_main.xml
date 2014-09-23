@@ -10,9 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
- <ImageButton
+ <Button
     android:id="@+id/btn_donate"
-    android:background="@drawable/donate"
+    android:background="@drawable/donate_backgroud"
+    android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:visibility="invisible"
@@ -139,7 +140,7 @@
             android:visibility="visible" />
 </LinearLayout>
  <!-- for inmobi -->
-
+<!--  
     <LinearLayout
         android:id="@+id/bannerLayout"
         android:layout_width="wrap_content"
@@ -156,14 +157,5 @@
             appId="@string/appId" />
 
     </LinearLayout>
-   <!--  <Button
-    android:id="@+id/btn_donate"
-    android:background="@layout/mybutton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="invisible"
-    android:layout_above="@id/btn_container"
-    android:layout_alignParentRight="true" 
-    android:layout_marginBottom="20sp"
-       android:text="Donate" />-->
+-->
 </RelativeLayout>

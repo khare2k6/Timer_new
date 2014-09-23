@@ -11,7 +11,7 @@
     <string name="btnPause">Pause</string>
     <string name="btnresume">Resume</string>
      <string name="resetMedia">Reset Media</string>
-     <string name="actionDonate">Support me</string>
+     <string name="actionDonate">Donate</string>
      <string name="donate_url">http://reikitimer.weebly.com/reiki-timer.html</string>
      <string name="appId">1cab93cea86a49618787b083bf5d91cb</string>
     <string name="menuExit">Exit</string>

@@ -3,7 +3,6 @@ package com.ak.ui;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
@@ -24,7 +23,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.MediaStore.Audio.Media;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,9 +36,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,12 +44,11 @@ import android.widget.Toast;
 import com.ak.reikitimer.R;
 import com.ak.remotecontroller.ITimerActionsListener;
 import com.ak.service.ControllerService;
-
-import com.inmobi.commons.InMobi;
-import com.inmobi.monetization.IMBanner;
-import com.inmobi.monetization.IMBannerListener;
-import com.inmobi.monetization.IMErrorCode;
 import com.ak.timer.TimerStateMachine.State;
+//import com.inmobi.commons.InMobi;
+//import com.inmobi.monetization.IMBanner;
+//import com.inmobi.monetization.IMBannerListener;
+//import com.inmobi.monetization.IMErrorCode;
 
 public class MainActivity extends Activity implements ITimerActionsListener,OnItemSelectedListener,OnClickListener {
 	private ControllerService mService;
@@ -62,10 +56,10 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 	private static final int MEDIA_PICKER_ID = 0;
 	private final float VOLUME_TOO_LOW = (float) 0.75;
 	private static final long MINIMUM_TIME_PERID_FOR_TIMER = 3000;
-	private final String APP_ID_INMOBI ="1cab93cea86a49618787b083bf5d91cb";
+	//private final String APP_ID_INMOBI ="1cab93cea86a49618787b083bf5d91cb";
 	private Intent mServiceIntent ;
 	private Button mBtnStart,mBtnStop,mBtnPause,mBtnResume;
-	private ImageButton mBtnDonate;
+	private Button mBtnDonate;
 	private Spinner mSpinnerMinutes,mSpinnerSeconds;
 	private TextView mTvElapsedTime,mTvMin,mTvSec,mTvRestartingLabel;
 	private long mTime;
@@ -77,11 +71,12 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 	private State mState;
 	private AudioManager mAudioManager;
 	private Toast mToast;
-	private LinearLayout mBannerLayout;
-	private IMBanner mBanner;
+	//private LinearLayout mBannerLayout;
+	//private IMBanner mBanner;
 	RelativeLayout mParentLayout;
 	BroadcastReceiver mReceiver ;
 	public static final String INTENT_EXIT = "com.ak.exit";
+	private final long THREE_MINUTES = 3*60*1000;
 
 	private ServiceConnection mServiceConnection = new ServiceConnection() {
 		
@@ -99,6 +94,9 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 			if(mService.isTimerRunning()){
 				updateButtonState(State.STARTED);
 				setTimeOnSpinner(mService.getTime());
+			}else{
+				//set default time to 3 minutes
+				setTimeOnSpinner(THREE_MINUTES);
 			}
 		}
 	};
@@ -141,7 +139,7 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 		mBtnStop = (Button)findViewById(R.id.btn_stop);
 		mBtnPause = (Button)findViewById(R.id.btn_pause);
 		mBtnResume = (Button)findViewById(R.id.btn_resume);
-		mBtnDonate = (ImageButton) findViewById(R.id.btn_donate);
+		mBtnDonate = (Button) findViewById(R.id.btn_donate);
 		mSpinnerMinutes = (Spinner)findViewById(R.id.spn_min);
 		mSpinnerSeconds = (Spinner)findViewById(R.id.spn_sec);
 		mTvElapsedTime = (TextView)findViewById(R.id.tv_elapsedTime);
@@ -159,8 +157,8 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 		mSpinnerSeconds.setOnItemSelectedListener(this);
 		mPreference = getSharedPreferences(ControllerService.SHARED_PREF,0);
 		mAudioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-		mBannerLayout = (LinearLayout)findViewById(R.id.bannerLayout);
-		mBanner = (IMBanner) findViewById(R.id.banner);
+//		mBannerLayout = (LinearLayout)findViewById(R.id.bannerLayout);
+//		mBanner = (IMBanner) findViewById(R.id.banner);
 		mParentLayout = (RelativeLayout)findViewById(R.id.parentLayout);
 		mReceiver = new BRReceiver();
 		
@@ -248,46 +246,46 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 		//register for getting connectivity events
 		intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(mReceiver, intentFilter);
-		mBanner.setIMBannerListener(new IMBannerListener() {
-			@Override
-			public void onShowBannerScreen(IMBanner arg0) {
-				Log.d(TAG,"banner onShowBannerScreen");
-			}
-			@Override
-			public void onLeaveApplication(IMBanner arg0) {
-				Log.d(TAG,"banner onLeaveApplication");
-			}
-			@Override
-			public void onDismissBannerScreen(IMBanner arg0) {
-				Log.d(TAG,"banner onDismissBannerScreen");
-			}
-			@Override
-			public void onBannerRequestFailed(IMBanner banner, IMErrorCode errorCode) {
-				Log.d(TAG,"banner onBannerRequestFailed");
-				/*FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-						FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-				layoutParams.setMargins(0, 0, 0, 80);
-				
-				mParentLayout.setLayoutParams(layoutParams);
-				mBannerLayout.setVisibility(View.VISIBLE);	*/		
-			}
-			@Override
-			public void onBannerRequestSucceeded(IMBanner arg0) {
-				Log.d(TAG,"banner onBannerRequestSucceeded");
-				FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-						FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-				layoutParams.setMargins(0, 0, 0, 80);
-				mParentLayout.setLayoutParams(layoutParams);
-				mBannerLayout.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onBannerInteraction(IMBanner arg0, Map<String, String> arg1) {
-				Log.d(TAG,"banner onBannerInteraction");
-			}
-		});
-		InMobi.initialize(this, APP_ID_INMOBI);
-		mBanner.loadBanner();
+//		mBanner.setIMBannerListener(new IMBannerListener() {
+//			@Override
+//			public void onShowBannerScreen(IMBanner arg0) {
+//				Log.d(TAG,"banner onShowBannerScreen");
+//			}
+//			@Override
+//			public void onLeaveApplication(IMBanner arg0) {
+//				Log.d(TAG,"banner onLeaveApplication");
+//			}
+//			@Override
+//			public void onDismissBannerScreen(IMBanner arg0) {
+//				Log.d(TAG,"banner onDismissBannerScreen");
+//			}
+//			@Override
+//			public void onBannerRequestFailed(IMBanner banner, IMErrorCode errorCode) {
+//				Log.d(TAG,"banner onBannerRequestFailed");
+//				/*FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+//						FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+//				layoutParams.setMargins(0, 0, 0, 80);
+//				
+//				mParentLayout.setLayoutParams(layoutParams);
+//				mBannerLayout.setVisibility(View.VISIBLE);	*/		
+//			}
+//			@Override
+//			public void onBannerRequestSucceeded(IMBanner arg0) {
+//				Log.d(TAG,"banner onBannerRequestSucceeded");
+//				FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+//						FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+//				layoutParams.setMargins(0, 0, 0, 80);
+//				mParentLayout.setLayoutParams(layoutParams);
+//				mBannerLayout.setVisibility(View.VISIBLE);
+//			}
+//
+//			@Override
+//			public void onBannerInteraction(IMBanner arg0, Map<String, String> arg1) {
+//				Log.d(TAG,"banner onBannerInteraction");
+//			}
+//		});
+//		InMobi.initialize(this, APP_ID_INMOBI);
+//		mBanner.loadBanner();
 		//InMobi.setLogLevel(LOG_LEVEL.NONE);
 	}
 
@@ -323,24 +321,24 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 		}
 	}
 	
-	private void updateMediaSource(String data){
-		Editor edit = mPreference.edit();
-		if(data == null){
-			edit.remove(ControllerService.MEDIA_URI_KEY);
-			showToast("Default media selected");
-		}else{
-			if(isAudioFile(data)){
-				edit.putString(ControllerService.MEDIA_URI_KEY, data);
-				showToast("Media file updated");
-			}
-		}
-		edit.commit();
-		boolean isSetSuccess = mService.setMediaSourceChanged();
-		if(!isSetSuccess){
-			Toast.makeText(this, "Media format not supported", Toast.LENGTH_SHORT).show();
-			
-		}
-	}
+//	private void updateMediaSource(String data){
+//		Editor edit = mPreference.edit();
+//		if(data == null){
+//			edit.remove(ControllerService.MEDIA_URI_KEY);
+//			showToast("Default media selected");
+//		}else{
+//			if(isAudioFile(data)){
+//				edit.putString(ControllerService.MEDIA_URI_KEY, data);
+//				showToast("Media file updated");
+//			}
+//		}
+//		edit.commit();
+//		boolean isSetSuccess = mService.setMediaSourceChanged();
+//		if(!isSetSuccess){
+//			Toast.makeText(this, "Media format not supported", Toast.LENGTH_SHORT).show();
+//			
+//		}
+//	}
 	
 	private void updateMediaSource2(String data){
 		Editor edit = mPreference.edit();
@@ -348,12 +346,12 @@ public class MainActivity extends Activity implements ITimerActionsListener,OnIt
 			edit.remove(ControllerService.MEDIA_URI_KEY);
 			showToast("Default media selected");
 			edit.commit();
-			boolean isSetSuccess = mService.setMediaSourceChanged();
+			 mService.setMediaSourceChanged();
 		}else if(isAudioFile(data)){
 			edit.putString(ControllerService.MEDIA_URI_KEY, data);
 			showToast("Media file updated");
 			edit.commit();
-			boolean isSetSuccess = mService.setMediaSourceChanged();
+			 mService.setMediaSourceChanged();
 		}else{
 			showToast("Not supported format!");
 			return;

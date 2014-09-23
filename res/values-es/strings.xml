@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Timer</string>
+    <string name="change_sound">Cambiar de sonido</string>
+     <string name="change_rest_period">Editar Período de descanso</string>
+    <string name="hello_world">Hello world!</string>
+      <string name="restar_timer_label">Reinicio en ..</string>
+    <string name="selecTime">Seleccione Hora </string>
+    <string name="btnStart">Inicio</string>
+    <string name="btnStop">Deténgase</string>
+    <string name="btnPause">Pausa</string>
+    <string name="btnresume">Continuar</string>
+     <string name="resetMedia">Restablecer los medios de comunicación </string>
+     <string name="actionDonate">Donar</string>
+     <string name="donate_url">http://reikitimer.weebly.com/reiki-timer.html</string>
+     <string name="appId">1cab93cea86a49618787b083bf5d91cb</string>
+    <string name="menuExit">Salida</string>
+</resources>
