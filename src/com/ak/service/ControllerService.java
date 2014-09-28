@@ -78,7 +78,7 @@ public class ControllerService extends Service implements ITimerActionsListener{
 		.setSmallIcon(R.drawable.ic_clock2)
 		.setContentIntent(PendingIntent.getActivity(ControllerService.this, ID, 
 				new Intent(ControllerService.this,MainActivity.class), Intent.FLAG_ACTIVITY_NEW_TASK))
-		.addAction(android.R.drawable.button_onoff_indicator_off, "Exit", pIntent);
+		.addAction(android.R.drawable.ic_lock_power_off, "Exit", pIntent);
 		return notificationBuilder.build();
 	}
 	@Override
