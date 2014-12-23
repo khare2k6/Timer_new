@@ -55,8 +55,7 @@ public class MyCountDownTimer2 {
 		mInterval = countDownInterval;
 		mListener = callback;
 		mContext = context;
-		mServiceIntent = PendingIntent.getService(mContext, 0,
-				new Intent(mContext, TimerExpiredService.class), 0);
+		mServiceIntent = PendingIntent.getBroadcast(mContext, 0, new Intent(mContext, TimerExpiredReceiver.class), 0);//PendingIntent.getService(mContext, 0,new Intent(mContext, TimerExpiredService.class), 0);
 		mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 	}
 	public void start() {

@@ -21,25 +21,13 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int backdrop=0x7f020000;
-        public static final int chakras=0x7f020001;
-        public static final int donate=0x7f020002;
-        public static final int donate_backgroud=0x7f020003;
-        public static final int ic_clock=0x7f020004;
-        public static final int ic_clock2=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int new_icon=0x7f020007;
-        public static final int new_icon1=0x7f020008;
-        public static final int new_icon2=0x7f020009;
-        public static final int new_icon3=0x7f02000a;
-        public static final int reiki=0x7f02000b;
-        public static final int reiki_background2=0x7f02000c;
-        public static final int reiki_background3=0x7f02000d;
-        public static final int temp=0x7f02000e;
-        public static final int test1=0x7f02000f;
-        public static final int test2=0x7f020010;
-        public static final int test3=0x7f020011;
-        public static final int test_root=0x7f020012;
+        public static final int chakras=0x7f020000;
+        public static final int donate_backgroud=0x7f020001;
+        public static final int ic_clock2=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int new_icon1=0x7f020004;
+        public static final int new_icon2=0x7f020005;
+        public static final int new_icon3=0x7f020006;
     }
     public static final class id {
         public static final int btn_container=0x7f090009;

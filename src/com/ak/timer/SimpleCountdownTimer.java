@@ -5,10 +5,10 @@ import android.os.CountDownTimer;
 /*
  * Not using now
  */
-public class MyCountDownTimer extends CountDownTimer{
+public class SimpleCountdownTimer extends CountDownTimer{
 
 	private ICountDownListener listener;
-	public MyCountDownTimer(long millisInFuture, long countDownInterval,ICountDownListener callback) {
+	public SimpleCountdownTimer(long millisInFuture, long countDownInterval,ICountDownListener callback) {
 		super(millisInFuture, countDownInterval);
 		this.listener = callback;
 	}
